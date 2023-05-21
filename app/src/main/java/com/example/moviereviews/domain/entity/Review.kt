@@ -1,11 +1,11 @@
 package com.example.moviereviews.domain.entity
 
 data class Review (
-    val id: String,
+    val id: Int,
     val imageUrl: String,
     val title: String,
     val reviewUrl: String,
     val shortDescription: String,
     val author: String,
-    val date: String,
+    val publicationDate: String,
 )
