@@ -9,5 +9,5 @@ interface MovieReviewRepository {
 
     fun getCriticList(): LiveData<List<Critic>>
 
-    fun getCritic(id: String): Critic
+    fun getCritic(id: Int): LiveData<Critic>
 }

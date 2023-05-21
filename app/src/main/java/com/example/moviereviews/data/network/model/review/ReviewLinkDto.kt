@@ -6,5 +6,5 @@ import com.google.gson.annotations.SerializedName
 data class ReviewLinkDto(
     @SerializedName("url")
     @Expose
-    val url: String
+    val url: String?
 )

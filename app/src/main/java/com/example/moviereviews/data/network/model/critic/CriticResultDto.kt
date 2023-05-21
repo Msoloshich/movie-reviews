@@ -9,17 +9,22 @@ import com.google.gson.annotations.SerializedName
 data class CriticResultDto(
     @SerializedName("display_name")
     @Expose
-    private val displayName: String,
+    val displayName: String,
 
     @SerializedName("status")
     @Expose
-    private val status: String,
+    val status: String,
 
     @SerializedName("bio")
     @Expose
-    private val bio: String,
+    val bio: String,
 
     @SerializedName("multimedia")
     @Expose
-    private val multimedia: MultimediaDto? = null,
-)
+    val multimedia: MultimediaDto? = null,
+    val id: Int = UNDEFINED_ID,
+) {
+    companion object {
+        const val UNDEFINED_ID = 0
+    }
+}

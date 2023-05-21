@@ -14,13 +14,18 @@ data class ReviewResultsDto(
     @SerializedName("summary_short")
     @Expose
     val summaryShort: String,
-    @SerializedName("publication_date")
+    @SerializedName("date_updated")
     @Expose
-    val publicationDate: String,
+    val dateUpdated: String,
     @SerializedName("link")
     @Expose
     val link: ReviewLinkDto? = null,
     @SerializedName("multimedia")
     @Expose
-    val multimedia: MultimediaDto? = null
-)
+    val multimedia: MultimediaDto? = null,
+    val id: Int = UNDEFINED_ID
+) {
+    companion object {
+        const val UNDEFINED_ID = 0
+    }
+}

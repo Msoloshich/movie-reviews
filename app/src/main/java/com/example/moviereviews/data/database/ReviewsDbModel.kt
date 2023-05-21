@@ -7,10 +7,10 @@ import androidx.room.PrimaryKey
 data class ReviewsDbModel(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    val imageUrl: String,
+    val imageUrl: String?,
     val title: String,
-    val reviewUrl: String,
+    val reviewUrl: String?,
     val shortDescription: String,
     val author: String,
-    val publicationDate: String,
+    val publicationDate: Long,
 )
