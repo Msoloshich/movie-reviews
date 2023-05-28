@@ -10,6 +10,7 @@ interface ApiService {
     @GET("reviews/search.json")
     suspend fun getReviews(
         @Query(QUERY_API_KEY) apiKey: String = BuildConfig.API_KEY,
+        @Query(OFFSET)offset: Int = 0
     ): ReviewResultsListDto
 
     @GET("critics/all.json")
@@ -19,6 +20,7 @@ interface ApiService {
 
 
     companion object {
+        private const val OFFSET = "offset"
         private const val QUERY_API_KEY = "api-key"
     }
 

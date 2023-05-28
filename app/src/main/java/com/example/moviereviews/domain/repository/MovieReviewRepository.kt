@@ -10,4 +10,6 @@ interface MovieReviewRepository {
     fun getCriticList(): LiveData<List<Critic>>
 
     fun getCritic(id: Int): LiveData<Critic>
+
+    suspend fun loadData()
 }

@@ -6,6 +6,7 @@ import androidx.lifecycle.map
 import com.example.moviereviews.data.database.AppDatabase
 import com.example.moviereviews.data.mappers.CriticsMapper
 import com.example.moviereviews.data.mappers.ReviewsMapper
+import com.example.moviereviews.data.network.ApiFactory
 import com.example.moviereviews.domain.entity.Critic
 import com.example.moviereviews.domain.entity.Review
 import com.example.moviereviews.domain.repository.MovieReviewRepository
@@ -13,6 +14,7 @@ import com.example.moviereviews.domain.repository.MovieReviewRepository
 class MovieReviewRepositoryImpl(application: Application) : MovieReviewRepository {
 
     private val database = AppDatabase.getInstance(application)
+    private val apiService = ApiFactory.apiService
     private val reviewsDao = database.reviewsDao()
     private val criticsDao = database.criticsDao()
 
@@ -38,5 +40,13 @@ class MovieReviewRepositoryImpl(application: Application) : MovieReviewRepositor
         criticsDao.getCritic(id).map {
             criticsMapper.mapCriticsDbModelToEntity(it)
         }
+
+    override suspend fun loadData() {
+        val reviewsRaw = apiService.getReviews()
+        val reviewsDtoToDao = reviewsRaw.results.map {
+            reviewMapper.mapReviewDtoToDbModel(it)
+        }
+        reviewsDao.insertReviewsList(reviewsDtoToDao)
+    }
 
 }
