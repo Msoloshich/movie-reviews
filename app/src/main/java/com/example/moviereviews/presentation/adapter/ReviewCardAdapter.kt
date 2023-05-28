@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.ListAdapter
 import com.example.moviereviews.databinding.ReviewCardBinding
 import com.squareup.picasso.Picasso
 
-class ReviewCardAdapter(): ListAdapter<Review, ReviewCardViewHolder>(ReviewCardDiffCallback) {
+class ReviewCardAdapter: ListAdapter<Review, ReviewCardViewHolder>(ReviewCardDiffCallback) {
+
+    var onOpenReviewClickListener:OnOpenReviewClickListener? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewCardViewHolder {
         val binding = ReviewCardBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -27,9 +29,15 @@ class ReviewCardAdapter(): ListAdapter<Review, ReviewCardViewHolder>(ReviewCardD
                 tvShortDesc.text = shortDescription
                 tvDate.text= "Date: $publicationDate"
                 Picasso.get().load(imageUrl).into(ivReview)
+                btLinkButton.setOnClickListener {
+                    onOpenReviewClickListener?.onReadReviewClick(reviewUrl)
+                }
             }
         }
     }
 
 
+    interface OnOpenReviewClickListener {
+        fun onReadReviewClick(reviewUrl: String)
+    }
 }

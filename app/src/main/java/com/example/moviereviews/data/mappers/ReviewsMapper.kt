@@ -31,7 +31,7 @@ class ReviewsMapper {
                 author = byline,
                 imageUrl = multimedia?.src,
                 publicationDate = dateStringToTimeStampDate(dto.dateUpdated),
-                reviewUrl = link?.url,
+                reviewUrl = link.url,
                 shortDescription = summaryShort,
                 title = displayTitle,
             )

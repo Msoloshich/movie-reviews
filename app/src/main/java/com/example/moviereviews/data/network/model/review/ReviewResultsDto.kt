@@ -19,7 +19,7 @@ data class ReviewResultsDto(
     val dateUpdated: String,
     @SerializedName("link")
     @Expose
-    val link: ReviewLinkDto? = null,
+    val link: ReviewLinkDto,
     @SerializedName("multimedia")
     @Expose
     val multimedia: MultimediaDto? = null,
