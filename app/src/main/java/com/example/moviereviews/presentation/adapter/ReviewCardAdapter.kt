@@ -3,12 +3,12 @@ package com.example.moviereviews.presentation.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.example.moviereviews.domain.entity.Review
-import androidx.recyclerview.widget.ListAdapter
+import androidx.paging.PagingDataAdapter
 import com.example.moviereviews.databinding.ReviewCardBinding
+import com.example.moviereviews.domain.entity.Review
 import com.squareup.picasso.Picasso
 
-class ReviewCardAdapter: ListAdapter<Review, ReviewCardViewHolder>(ReviewCardDiffCallback) {
+class ReviewCardAdapter: PagingDataAdapter<Review, ReviewCardViewHolder>(ReviewCardDiffCallback) {
 
     var onOpenReviewClickListener:OnOpenReviewClickListener? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewCardViewHolder {
@@ -23,15 +23,14 @@ class ReviewCardAdapter: ListAdapter<Review, ReviewCardViewHolder>(ReviewCardDif
     override fun onBindViewHolder(holder: ReviewCardViewHolder, position: Int) {
         val reviewItem= getItem(position)
         with(holder.binding) {
-            with(reviewItem) {
-                tvTitle.text = title
-                tvAuthor.text = "Author: $author"
-                tvShortDesc.text = shortDescription
-                tvDate.text= "Date: $publicationDate"
-                Picasso.get().load(imageUrl).into(ivReview)
+                tvTitle.text = reviewItem?.title
+                tvAuthor.text = "Author: " + reviewItem?.author
+                tvShortDesc.text = reviewItem?.shortDescription
+                tvDate.text= "Date: ${reviewItem?.publicationDate}"
+                Picasso.get().load(reviewItem?.imageUrl).into(ivReview)
                 btLinkButton.setOnClickListener {
-                    onOpenReviewClickListener?.onReadReviewClick(reviewUrl)
-                }
+                    onOpenReviewClickListener?.onReadReviewClick(reviewItem?.reviewUrl ?: "")
+
             }
         }
     }

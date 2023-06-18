@@ -6,5 +6,8 @@ import com.google.gson.annotations.SerializedName
 data class ReviewResultsListDto(
     @SerializedName("results")
     @Expose
-    val results: List<ReviewResultsDto>
+    val results: List<ReviewResultsDto>,
+    @SerializedName("has_more")
+    @Expose
+    val hasMore: Boolean
 )

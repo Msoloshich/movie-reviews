@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity("reviews")
 data class ReviewsDbModel(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     val publicationDate: Long,
     val id: Int,
     val imageUrl: String?,

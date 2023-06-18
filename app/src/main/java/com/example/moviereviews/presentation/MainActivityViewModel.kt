@@ -2,25 +2,19 @@ package com.example.moviereviews.presentation
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.PagingData
 import com.example.moviereviews.data.repository.MovieReviewRepositoryImpl
-import com.example.moviereviews.domain.usecases.GetReviewListUseCase
-import com.example.moviereviews.domain.usecases.LoadDataUseCase
-import kotlinx.coroutines.launch
+import com.example.moviereviews.domain.entity.Review
+import com.example.moviereviews.domain.usecases.GetPagedReviewsUseCase
+import kotlinx.coroutines.flow.Flow
 
+
+@OptIn(ExperimentalPagingApi::class)
 class MainActivityViewModel(application: Application): AndroidViewModel(application) {
     private val repository = MovieReviewRepositoryImpl(application)
 
-    private val getReviewListUseCase = GetReviewListUseCase(repository)
-    private val loadDataUseCase = LoadDataUseCase(repository)
+    private val getPagedReviewsUseCase = GetPagedReviewsUseCase(repository)
 
-
-    val reviewList = getReviewListUseCase()
-
-    init {
-        viewModelScope.launch {
-            loadDataUseCase()
-        }
-    }
-
+    val reviewsLiveData: Flow<PagingData<Review>> = getPagedReviewsUseCase()
 }
