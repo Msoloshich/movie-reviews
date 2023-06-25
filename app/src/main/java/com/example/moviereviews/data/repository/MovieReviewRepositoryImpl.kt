@@ -1,6 +1,5 @@
 package com.example.moviereviews.data.repository
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import androidx.paging.ExperimentalPagingApi
@@ -12,7 +11,7 @@ import com.example.moviereviews.data.database.AppDatabase
 import com.example.moviereviews.data.database.ReviewsDbModel
 import com.example.moviereviews.data.mappers.CriticsMapper
 import com.example.moviereviews.data.mappers.ReviewsMapper
-import com.example.moviereviews.data.network.ApiFactory
+import com.example.moviereviews.data.network.ApiService
 import com.example.moviereviews.domain.entity.Critic
 import com.example.moviereviews.domain.entity.Review
 import com.example.moviereviews.domain.repository.MovieReviewRepository
@@ -20,10 +19,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 @ExperimentalPagingApi
-class MovieReviewRepositoryImpl(application: Application) : MovieReviewRepository {
+class MovieReviewRepositoryImpl(private val apiService: ApiService, private val database: AppDatabase) : MovieReviewRepository {
 
-    private val database = AppDatabase.getInstance(application)
-    private val apiService = ApiFactory.apiService
     private val reviewsDao = database.reviewsDao()
     private val criticsDao = database.criticsDao()
 
@@ -57,7 +54,7 @@ class MovieReviewRepositoryImpl(application: Application) : MovieReviewRepositor
             config = PagingConfig(pageSize = 20, initialLoadSize = 20, enablePlaceholders = true),
             remoteMediator = ReviewRemoteMediator(appDatabase=database, apiService=apiService),
         ){
-            database.reviewsDao().pagingSource()
+            reviewsDao.pagingSource()
         }.flow
     }
 

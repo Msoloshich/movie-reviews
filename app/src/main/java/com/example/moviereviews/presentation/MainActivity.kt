@@ -3,24 +3,25 @@ package com.example.moviereviews.presentation
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.moviereviews.databinding.ActivityMainBinding
 import com.example.moviereviews.presentation.adapter.DefaultLoadStateAdapter
 import com.example.moviereviews.presentation.adapter.Holder
 import com.example.moviereviews.presentation.adapter.ReviewCardAdapter
 import com.example.moviereviews.presentation.adapter.TryAgainAction
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var mainLoadStateHolder: Holder
 
-    private lateinit var viewModel: MainActivityViewModel
+    private val viewModel by viewModels<MainActivityViewModel>()
     private val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
@@ -28,7 +29,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
         setupReviewsList()
 
     }
