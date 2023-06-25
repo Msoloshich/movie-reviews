@@ -3,10 +3,13 @@ package com.example.moviereviews.presentation
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.moviereviews.databinding.ActivityMainBinding
+import com.example.moviereviews.databinding.FragmentReviewsListBinding
 import com.example.moviereviews.presentation.adapter.DefaultLoadStateAdapter
 import com.example.moviereviews.presentation.adapter.Holder
 import com.example.moviereviews.presentation.adapter.ReviewCardAdapter
@@ -18,20 +21,29 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class ReviewsListFragment: Fragment() {
     private lateinit var mainLoadStateHolder: Holder
 
-    private val viewModel by viewModels<MainActivityViewModel>()
-    private val binding by lazy {
-        ActivityMainBinding.inflate(layoutInflater)
+    private val viewModel by viewModels<MovieReviewsViewModel>()
+
+    private var _binding: FragmentReviewsListBinding? = null
+    private val binding: FragmentReviewsListBinding
+        get() = _binding ?: throw RuntimeException("Fragment ReviewsListBinding not found")
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentReviewsListBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupReviewsList()
-
     }
+
 
     private fun setupReviewsList() {
         val adapter = ReviewCardAdapter()
@@ -84,4 +96,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    companion object {
+        fun newInstance (): Fragment {
+            return ReviewsListFragment().apply {
+                arguments = Bundle()
+            }
+        }
+    }
 }

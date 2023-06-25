@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class MainActivityViewModel @Inject constructor(
+class MovieReviewsViewModel @Inject constructor(
     repository: MovieReviewRepository
 ) : ViewModel() {
     private val getPagedReviewsUseCase = GetPagedReviewsUseCase(repository)

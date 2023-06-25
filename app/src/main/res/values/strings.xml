@@ -2,4 +2,6 @@
     <string name="app_name">Movie Reviews</string>
     <string name="try_again">Try again</string>
     <string name="load_error">load error</string>
+    <string name="reviews">Reviews</string>
+    <string name="critics">Critics</string>
 </resources>

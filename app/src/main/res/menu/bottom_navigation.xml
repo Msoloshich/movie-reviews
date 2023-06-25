@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/iReviews"
+        android:icon="@drawable/baseline_reviews_24"
+        android:title="@string/reviews" />
+    <item
+        android:id="@+id/iCritics"
+        android:icon="@drawable/baseline_person_24"
+        android:title="@string/critics" />
+</menu>
