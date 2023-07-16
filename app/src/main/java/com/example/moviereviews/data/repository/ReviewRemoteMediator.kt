@@ -1,6 +1,5 @@
 package com.example.moviereviews.data.repository
 
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -55,8 +54,6 @@ class ReviewRemoteMediator(
             val reviews = apiService.getReviews(
                 offset = loadKey * 20
             )
-            Log.d("Test", "Load type $loadType")
-            Log.d("Test", "Send request $pageIndex")
 
             appDatabase.withTransaction {
                 if (loadType == LoadType.REFRESH) {
@@ -73,10 +70,8 @@ class ReviewRemoteMediator(
                 endOfPaginationReached = !reviews.hasMore
             )
         } catch (e: IOException) {
-            Log.d("Test Error", "Send error1 $e")
             MediatorResult.Error(e)
         } catch (e: HttpException) {
-            Log.d("Test Error", "Send error2 $e")
             MediatorResult.Error(e)
         }
     }
