@@ -1,6 +1,5 @@
 package com.example.moviereviews.data.network.model.review
 
-import com.example.moviereviews.data.network.model.general.MultimediaDto
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -22,7 +21,7 @@ data class ReviewResultsDto(
     val link: ReviewLinkDto,
     @SerializedName("multimedia")
     @Expose
-    val multimedia: MultimediaDto? = null,
+    val multimedia: ReviewMultimediaDto? = null,
     val id: Int = UNDEFINED_ID
 ) {
     companion object {

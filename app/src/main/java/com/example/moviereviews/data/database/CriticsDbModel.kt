@@ -5,10 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity("critics")
 data class CriticsDbModel(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    @PrimaryKey
+    val name: String,
     val bio: String,
     val photoUrl: String?,
-    val name: String,
     val status: String,
 )

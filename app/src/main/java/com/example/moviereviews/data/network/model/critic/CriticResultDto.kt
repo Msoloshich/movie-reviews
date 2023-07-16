@@ -1,8 +1,6 @@
 package com.example.moviereviews.data.network.model.critic
 
-import com.example.moviereviews.data.network.model.general.MultimediaDto
 import com.google.gson.annotations.Expose
-
 import com.google.gson.annotations.SerializedName
 
 
@@ -21,10 +19,5 @@ data class CriticResultDto(
 
     @SerializedName("multimedia")
     @Expose
-    val multimedia: MultimediaDto? = null,
-    val id: Int = UNDEFINED_ID,
-) {
-    companion object {
-        const val UNDEFINED_ID = 0
-    }
-}
+    val multimedia: CriticMultimediaDto? = null,
+)

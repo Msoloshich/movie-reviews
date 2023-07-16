@@ -1,10 +1,10 @@
 package com.example.moviereviews.data.database
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.paging.PagingSource
 
 @Dao
 interface ReviewsDao {
@@ -16,4 +16,8 @@ interface ReviewsDao {
 
     @Query("DELETE FROM reviews")
     suspend fun clearAll()
+
+
+    @Query("SELECT COUNT(id) FROM reviews")
+    fun getCount(): Int
 }

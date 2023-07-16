@@ -8,9 +8,8 @@ class CriticsMapper {
     fun mapCriticsDtoToDbModel(dto: CriticResultDto): CriticsDbModel =
         with(dto) {
             CriticsDbModel(
-                id = id,
                 bio = bio,
-                photoUrl = multimedia?.src,
+                photoUrl = multimedia?.resource?.src,
                 name = displayName,
                 status = status,
             )
@@ -19,7 +18,6 @@ class CriticsMapper {
     fun mapCriticsDbModelToEntity(model: CriticsDbModel): Critic =
         with(model) {
             Critic(
-                id,
                 bio,
                 photoUrl,
                 name,

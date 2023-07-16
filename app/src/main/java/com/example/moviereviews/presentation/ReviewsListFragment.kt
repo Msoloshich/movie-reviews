@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
 import com.example.moviereviews.databinding.FragmentReviewsListBinding
 import com.example.moviereviews.presentation.adapter.DefaultLoadStateAdapter
 import com.example.moviereviews.presentation.adapter.Holder
@@ -53,6 +54,7 @@ class ReviewsListFragment: Fragment() {
                 startActivity(browserIntent)
             }
         }
+        adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
 
         val tryAgainAction: TryAgainAction = { adapter.retry() }
         val footerAdapter = DefaultLoadStateAdapter(tryAgainAction)
@@ -76,7 +78,7 @@ class ReviewsListFragment: Fragment() {
     private fun observeLoadState(adapter: ReviewCardAdapter) {
         lifecycleScope.launch {
             adapter.loadStateFlow.debounce(200).collectLatest { state ->
-                mainLoadStateHolder.bind(state.append)
+                mainLoadStateHolder.bind(state.refresh)
             }
         }
     }
